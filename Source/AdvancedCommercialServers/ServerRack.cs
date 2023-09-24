@@ -49,6 +49,7 @@ namespace AdvancedCommercialServers
         {
             Scribe_Deep.Look(ref innerContainer, true, "innerContainer", this);
             Scribe_Values.Look(ref currentProgress, "currentProgress", 0f);
+            Scribe_Values.Look(ref currentIndex, "currentIndex", 0);
             base.ExposeData();
         }
 

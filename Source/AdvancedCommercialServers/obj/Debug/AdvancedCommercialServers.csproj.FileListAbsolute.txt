@@ -3,3 +3,8 @@ C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\ACS-AdvancedCommerci
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\ACS-AdvancedCommercialServer\Source\AdvancedCommercialServers\obj\Debug\AdvancedCommercialServers.csproj.AssemblyReference.cache
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\ACS-AdvancedCommercialServer\Source\AdvancedCommercialServers\obj\Debug\AdvancedCommercialServers.csproj.CoreCompileInputs.cache
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\ACS-AdvancedCommercialServer\Source\AdvancedCommercialServers\obj\Debug\AdvancedCommercialServers.dll
+C:\Users\Georodin\Documents\GitHub\ACS-AdvancedCommercialServer\1.4\Assemblies\AdvancedCommercialServers.dll.config
+C:\Users\Georodin\Documents\GitHub\ACS-AdvancedCommercialServer\1.4\Assemblies\AdvancedCommercialServers.dll
+C:\Users\Georodin\Documents\GitHub\ACS-AdvancedCommercialServer\Source\AdvancedCommercialServers\obj\Debug\AdvancedCommercialServers.csproj.AssemblyReference.cache
+C:\Users\Georodin\Documents\GitHub\ACS-AdvancedCommercialServer\Source\AdvancedCommercialServers\obj\Debug\AdvancedCommercialServers.csproj.CoreCompileInputs.cache
+C:\Users\Georodin\Documents\GitHub\ACS-AdvancedCommercialServer\Source\AdvancedCommercialServers\obj\Debug\AdvancedCommercialServers.dll
