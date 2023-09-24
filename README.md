@@ -1,7 +1,7 @@
 # ACS: Advanced Commercial Server Mod
 Introducing the ACS Mod, designed to empower you to construct the server room of your aspirations! Tailor and optimize your virtual environment by installing diverse tiers of servers into a Server Rack, allowing you to exchange goods and manage heat production effectively.
 
-![Preview Image](ACS-AdvancedCommercialServer/Source/Photoshop/preview.jpg)
+![Preview Image](/Source/Photoshop/preview.jpg)
 
 ## Key Features:
 - **Advanced Server Integration:** Incorporate various tiers of servers in exchange for goods and manage the heat production meticulously.
