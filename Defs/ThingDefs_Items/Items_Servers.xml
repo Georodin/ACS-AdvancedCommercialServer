@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<ThingDef Abstract="True" ParentName="ResourceBase" Name="BaseServer">
+    <defName>BaseServer</defName>
+    <label>Base Server</label>
+    <description>A generic server base. Not used directly.</description>
+    <size>(1,1)</size>
+    <graphicData>
+        <texPath>Things/Server/Server</texPath>
+        <graphicClass>Graphic_Single</graphicClass>
+        <drawSize>1</drawSize>
+    </graphicData>
+	<soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <stackLimit>12</stackLimit>
+    <healthAffectsPrice>false</healthAffectsPrice>
+    <statBases>
+      <MaxHitPoints>70</MaxHitPoints>
+      <Mass>15</Mass>
+      <Flammability>0.6</Flammability>
+      <DeteriorationRate>2.0</DeteriorationRate>
+    </statBases>
+    <intricate>true</intricate>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+    <tradeTags>
+      <li>ExoticMisc</li>
+    </tradeTags>
+    <thingSetMakerTags><li>RewardStandardCore</li></thingSetMakerTags>
+</ThingDef>
+
+<ThingDef ParentName="BaseServer">
+    <defName>ServerBasic</defName>
+    <label>Basic Server</label>
+    <description>A basic server useful for typical operations.</description>
+    <costList>
+        <Steel>50</Steel>
+        <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
+	<modExtensions>
+    <li Class="AdvancedCommercialServers.ServerBase">
+       <powerConsumption>200</powerConsumption>
+       <workingSpeed>1</workingSpeed>
+    </li>
+  </modExtensions>
+  <researchPrerequisites>
+  <li>ServerBasic</li>
+</researchPrerequisites>
+</ThingDef>
+
+<ThingDef ParentName="BaseServer">
+    <defName>ServerAdvanced</defName>
+    <label>Advanced Server</label>
+    <description>An advanced server with higher processing power and storage.</description>
+    <costList>
+        <Steel>70</Steel>
+        <ComponentIndustrial>5</ComponentIndustrial>
+        <ComponentSpacer>2</ComponentSpacer>
+    </costList>
+	<modExtensions>
+    <li Class="AdvancedCommercialServers.ServerBase">
+       <powerConsumption>500</powerConsumption>
+       <workingSpeed>3</workingSpeed>
+    </li>
+  </modExtensions>
+    <researchPrerequisites>
+  <li>ServerAdvanced</li>
+</researchPrerequisites>
+</ThingDef>
+
+<ThingDef ParentName="BaseServer">
+    <defName>ServerGlitterworld</defName>
+    <label>Glitterworld Server</label>
+    <description>A highly advanced server originating from the most technologically advanced worlds. Has unparalleled processing speed and storage.</description>
+    <costList>
+        <Plasteel>50</Plasteel>
+        <ComponentIndustrial>5</ComponentIndustrial>
+        <ComponentSpacer>5</ComponentSpacer>
+    </costList>
+	<modExtensions>
+    <li Class="AdvancedCommercialServers.ServerBase">
+       <powerConsumption>1200</powerConsumption>
+       <workingSpeed>8</workingSpeed>
+    </li>
+  </modExtensions>
+      <researchPrerequisites>
+		<li>ServerGlitterworld</li>
+	</researchPrerequisites>
+</ThingDef>
+
+</Defs>
+
+<!--
+	<deconstructible>true</deconstructible>
+    <recipeMaker>
+        <yieldIngredients>
+            <Steel>30</Steel>
+            <ComponentIndustrial>2</ComponentIndustrial>
+        </yieldIngredients>
+	</recipeMaker>
+	<deconstructible>true</deconstructible>
+    <recipeMaker>
+        <yieldIngredients>
+            <Steel>50</Steel>
+            <ComponentIndustrial>4</ComponentIndustrial>
+            <ComponentSpacer>1</ComponentSpacer>
+        </yieldIngredients>
+    </recipeMaker>
+	<deconstructible>true</deconstructible>
+    <recipeMaker>
+        <yieldIngredients>
+            <Plasteel>40</Plasteel>
+            <ComponentIndustrial>4</ComponentIndustrial>
+            <ComponentSpacer>4</ComponentSpacer>
+        </yieldIngredients>
+    </recipeMaker>
+	
+-->

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!--===================== Machining and its children sub-tier ======================-->
+
+  <ResearchProjectDef>
+    <defName>ServerBasic</defName>
+    <label>server basic</label>
+    <description>Construct a Server Rack and assemble basic Servers at the machining table to fill it.</description>
+    <baseCost>600</baseCost>
+    <techLevel>Industrial</techLevel>
+    <prerequisites>
+      <li>Machining</li>
+    </prerequisites>
+	<researchViewX>7.00</researchViewX>
+    <researchViewY>5.50</researchViewY>
+  </ResearchProjectDef>
+  
+    <ResearchProjectDef>
+    <defName>ServerAdvanced</defName>
+    <label>server advanced</label>
+    <description>Assemble a advanced Server at the fabrication bench.</description>
+    <baseCost>2500</baseCost>
+    <techLevel>Spacer</techLevel>
+    <prerequisites>
+      <li>ServerBasic</li>
+      <li>Fabrication</li>
+    </prerequisites>
+	<researchViewX>15.00</researchViewX>
+    <researchViewY>5.50</researchViewY>
+  </ResearchProjectDef>
+  
+    <ResearchProjectDef>
+    <defName>ServerGlitterworld</defName>
+    <label>server advanced</label>
+    <description>Construct a Server Rack and basic Servers to fill it.</description>
+    <baseCost>4500</baseCost>
+    <techLevel>Spacer</techLevel>
+    <prerequisites>
+      <li>ServerAdvanced</li>
+      <li>AdvancedFabrication</li>
+    </prerequisites>
+	<researchViewX>17.00</researchViewX>
+    <researchViewY>5.50</researchViewY>
+  </ResearchProjectDef>
+
+<!--
+    <researchViewX>6.00</researchViewX>
+    <researchViewY>3.50</researchViewY>
+    <hiddenPrerequisites>
+      <li>Firefoam</li>
+    </hiddenPrerequisites>
+	-->
+</Defs>

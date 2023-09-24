@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<ThingDef ParentName="BenchBase">
+		<defName>ServerRack</defName>
+		<thingClass>AdvancedCommercialServers.ServerRack</thingClass>
+		<label>Server Rack</label>
+		<description>A simple Server Rack that fits up to 12 Server(4U) nodes. Comes with a powerconnector.</description>
+		<graphicData>
+			<texPath>Things/Building/ServerRack/ServerRack</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<shadowData>
+				<volume>(0.3, 0.5, 0.3)</volume>
+				<offset>(0,0,-0.23)</offset>
+			</shadowData>
+			<drawOffset>(0,0,0.5)</drawOffset>
+			<drawSize>2.6</drawSize>
+			<drawRotated>true</drawRotated>
+		</graphicData>
+		<tickerType>Normal</tickerType>
+		<minifiedDrawScale>0.5</minifiedDrawScale>
+		<altitudeLayer>BuildingOnTop</altitudeLayer>
+		<rotatable>true</rotatable>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<fillPercent>1.0</fillPercent>
+		<interactionCellOffset>(0,0,1)</interactionCellOffset>
+		<hasInteractionCell>true</hasInteractionCell>
+		<costList>
+			<Steel>80</Steel>
+			<ComponentIndustrial>2</ComponentIndustrial>
+		</costList>
+		<statBases>
+			<WorkToBuild>800</WorkToBuild>
+			<MaxHitPoints>200</MaxHitPoints>
+			<Flammability>0.5</Flammability>
+			<Mass>80</Mass>
+		</statBases>
+		<passability>Impassable</passability>
+		<size>(1,1)</size>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<building>
+			<unpoweredWorkTableWorkSpeedFactor>1.0</unpoweredWorkTableWorkSpeedFactor>
+		</building>
+		<researchPrerequisites>
+			<li>ServerBasic</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>2</constructionSkillPrerequisite>
+		<designationCategory>Production</designationCategory>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<shortCircuitInRain>true</shortCircuitInRain>
+				<basePowerConsumption>0</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+		<li Class="CompProperties_HeatPusher">
+			<compClass>AdvancedCommercialServers.ServerRackHeatPusherPowered</compClass>
+			<heatPerSecond>21</heatPerSecond>
+		</li>
+		</comps>
+		<tradeTags>
+			<li>ExoticMisc</li>
+		</tradeTags>
+		<recipes>
+			<li>Install_ServerBasic</li>
+			<li>Install_ServerAdvanced</li>
+			<li>Install_ServerGlitterworld</li>
+			<li>Uninstall_ServerBasic</li>
+			<li>Uninstall_ServerAdvanced</li>
+			<li>Uninstall_ServerGlitterworld</li>
+		</recipes>
+		<inspectorTabs>
+			<li>ITab_Bills</li>
+		</inspectorTabs>
+	</ThingDef>
+</Defs>

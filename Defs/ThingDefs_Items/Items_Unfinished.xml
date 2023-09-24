@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ThingDef ParentName="UnfinishedBase">
+    <defName>UnfinishedServerBasic</defName>
+    <label>unfinished basic server</label>
+    <description>An unfinished basic server.</description>
+    <statBases>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Server/Server_unfinished</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stuffCategories Inherit="false" />
+  </ThingDef>
+  <ThingDef ParentName="UnfinishedBase">
+    <defName>UnfinishedServerAdvanced</defName>
+    <label>unfinished advanced server</label>
+    <description>An unfinished advanced server.</description>
+    <statBases>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Server/Server_unfinished</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stuffCategories Inherit="false" />
+  </ThingDef>
+    <ThingDef ParentName="UnfinishedBase">
+    <defName>UnfinishedServerGlitterworld</defName>
+    <label>unfinished glitterworld server</label>
+    <description>An unfinished glitterworld server.</description>
+    <statBases>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Server/Server_unfinished</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stuffCategories Inherit="false" />
+  </ThingDef>
+</Defs>

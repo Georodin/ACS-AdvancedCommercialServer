@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <RecipeDef>
+    <defName>Uninstall_ServerBasic</defName>
+    <label>Uninstall basic server</label>
+    <description>Uninstalling basic server</description>
+    <jobString>Uninstalling basic server.</jobString>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <effectWorking>Cook</effectWorking>
+    <soundWorking>Recipe_Machining</soundWorking>
+    <workAmount>300</workAmount>
+    <skillRequirements>
+      <Crafting>4</Crafting>
+    </skillRequirements>
+    <workSkill>Crafting</workSkill>
+    <displayPriority>0</displayPriority>
+	<workerClass>AdvancedCommercialServers.UninstallServer_RecipeWorker</workerClass>
+ </RecipeDef>
+ 
+ <RecipeDef>
+    <defName>Uninstall_ServerAdvanced</defName>
+    <label>Uninstall advanced server</label>
+    <description>Uninstalling advanced server</description>
+    <jobString>Uninstalling advanced server.</jobString>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <effectWorking>Cook</effectWorking>
+    <soundWorking>Recipe_Machining</soundWorking>
+    <workAmount>300</workAmount>
+    <skillRequirements>
+      <Crafting>4</Crafting>
+    </skillRequirements>
+    <workSkill>Crafting</workSkill>
+    <displayPriority>1</displayPriority>
+	<workerClass>AdvancedCommercialServers.UninstallServer_RecipeWorker</workerClass>
+ </RecipeDef>
+ 
+  <RecipeDef>
+    <defName>Uninstall_ServerGlitterworld</defName>
+    <label>Uninstall glitterworld server</label>
+    <description>Uninstalling glitterworld server</description>
+    <jobString>Uninstalling glitterworld server.</jobString>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <effectWorking>Cook</effectWorking>
+    <soundWorking>Recipe_Machining</soundWorking>
+    <workAmount>300</workAmount>
+    <skillRequirements>
+      <Crafting>4</Crafting>
+    </skillRequirements>
+    <workSkill>Crafting</workSkill>
+    <displayPriority>2</displayPriority>
+	<workerClass>AdvancedCommercialServers.UninstallServer_RecipeWorker</workerClass>
+ </RecipeDef>
+ 
+</Defs>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <RecipeDef>
+    <defName>Install_ServerBasic</defName>
+    <label>install basic server</label>
+    <description>Installing basic server</description>
+    <jobString>Installing basic server.</jobString>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <effectWorking>Cook</effectWorking>
+    <soundWorking>Recipe_Machining</soundWorking>
+    <workAmount>300</workAmount>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>ServerBasic</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>ServerBasic</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <skillRequirements>
+      <Crafting>4</Crafting>
+    </skillRequirements>
+    <workSkill>Crafting</workSkill>
+    <displayPriority>0</displayPriority>
+	<workerClass>AdvancedCommercialServers.InstallServer_RecipeWorker</workerClass>
+ </RecipeDef>
+ 
+ <RecipeDef>
+    <defName>Install_ServerAdvanced</defName>
+    <label>install advanced server</label>
+    <description>Installing advanced server</description>
+    <jobString>Installing advanced server.</jobString>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <effectWorking>Cook</effectWorking>
+    <soundWorking>Recipe_Machining</soundWorking>
+    <workAmount>300</workAmount>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>ServerAdvanced</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>ServerAdvanced</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <skillRequirements>
+      <Crafting>4</Crafting>
+    </skillRequirements>
+    <workSkill>Crafting</workSkill>
+    <displayPriority>1</displayPriority>
+	<workerClass>AdvancedCommercialServers.InstallServer_RecipeWorker</workerClass>
+ </RecipeDef>
+ 
+  <RecipeDef>
+    <defName>Install_ServerGlitterworld</defName>
+    <label>install glitterworld server</label>
+    <description>Installing glitterworld server</description>
+    <jobString>Installing glitterworld server.</jobString>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <effectWorking>Cook</effectWorking>
+    <soundWorking>Recipe_Machining</soundWorking>
+    <workAmount>300</workAmount>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>ServerGlitterworld</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>ServerGlitterworld</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <skillRequirements>
+      <Crafting>4</Crafting>
+    </skillRequirements>
+    <workSkill>Crafting</workSkill>
+    <displayPriority>2</displayPriority>
+	<workerClass>AdvancedCommercialServers.InstallServer_RecipeWorker</workerClass>
+ </RecipeDef>
+ 
+</Defs>
