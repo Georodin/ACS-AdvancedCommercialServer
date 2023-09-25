@@ -140,6 +140,7 @@ namespace AdvancedCommercialServers
 
         public ServerRack()
         {
+            UpdateList();
             this.innerContainer = new ThingOwner<Thing>(this);
         }
 
@@ -159,20 +160,14 @@ namespace AdvancedCommercialServers
         public void InstallServer(Thing thing)
         {
             int totalCount = innerContainer.Sum(t => t.stackCount);
-            Log.Message("Count at: " + totalCount);
             if (totalCount < maxServers)
             {
-                Log.Message("Count: " + totalCount);
 
                 int spaceLeft = maxServers - totalCount;
                 int amountToAdd = Math.Min(spaceLeft, thing.stackCount);
 
                 innerContainer.TryAdd(thing.SplitOff(amountToAdd));
                 UpdateServerRack();
-            }
-            else
-            {
-                Log.Message("RACK FULL!");
             }
         }
 

@@ -11,7 +11,6 @@ namespace AdvancedCommercialServers
 
             if (thing is ServerRack rack)
             {
-                Log.Message("Else: " + rack.IsInstallAvailableNow());
                 return rack.IsInstallAvailableNow();
             }
 

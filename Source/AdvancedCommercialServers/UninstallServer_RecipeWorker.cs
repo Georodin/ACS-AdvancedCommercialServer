@@ -11,7 +11,6 @@ namespace AdvancedCommercialServers
 
             if (thing is ServerRack rack)
             {
-                Log.Message("Unistall: "+ rack.IsUninstallAvailableNow(recipe.label));
                 return rack.IsUninstallAvailableNow(recipe.label);
             }
             return false;
