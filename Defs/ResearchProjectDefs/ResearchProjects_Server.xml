@@ -32,8 +32,8 @@
   
     <ResearchProjectDef>
     <defName>ServerGlitterworld</defName>
-    <label>server advanced</label>
-    <description>Construct a Server Rack and basic Servers to fill it.</description>
+    <label>server glitterworld</label>
+    <description>Assemble a glitterworld Server at the fabrication bench.</description>
     <baseCost>4500</baseCost>
     <techLevel>Spacer</techLevel>
     <prerequisites>
@@ -43,12 +43,4 @@
 	<researchViewX>17.00</researchViewX>
     <researchViewY>5.50</researchViewY>
   </ResearchProjectDef>
-
-<!--
-    <researchViewX>6.00</researchViewX>
-    <researchViewY>3.50</researchViewY>
-    <hiddenPrerequisites>
-      <li>Firefoam</li>
-    </hiddenPrerequisites>
-	-->
 </Defs>
