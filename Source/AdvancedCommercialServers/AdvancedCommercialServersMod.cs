@@ -1,10 +1,4 @@
-﻿using RimWorld;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using Verse;
 
 namespace AdvancedCommercialServers
@@ -44,7 +38,7 @@ namespace AdvancedCommercialServers
                 ServerModSettings.generateHeatMultiplier = 1.0f;
             }
             listing_Standard.Gap(spacing);
-            
+
 
             // Generation Speed Multiplier Slider and Reset Button
             listing_Standard.Label($"Generation Speed Multiplier: {ServerModSettings.generationSpeedMultiplier}");
@@ -55,7 +49,7 @@ namespace AdvancedCommercialServers
                 ServerModSettings.generationSpeedMultiplier = 1.0f;
             }
             listing_Standard.Gap(spacing);
-            
+
 
             // Power Consumption Slider and Reset Button
             listing_Standard.Label($"Power Consumption: {ServerModSettings.powerConsumption}");
@@ -64,6 +58,17 @@ namespace AdvancedCommercialServers
             if (listing_Standard.ButtonText("Reset"))
             {
                 ServerModSettings.powerConsumption = 1.0f;
+            }
+            listing_Standard.Gap(spacing);
+
+
+            // Power Consumption Slider and Reset Button
+            listing_Standard.Label($"Research Multiplier: {ServerModSettings.researchMultiplier}");
+            listing_Standard.Gap(0f);
+            ServerModSettings.researchMultiplier = listing_Standard.Slider(ServerModSettings.researchMultiplier, 0f, 10f);
+            if (listing_Standard.ButtonText("Reset"))
+            {
+                ServerModSettings.researchMultiplier = 1.0f;
             }
             listing_Standard.Gap(spacing);
 
@@ -81,6 +86,24 @@ namespace AdvancedCommercialServers
             listing_Standard.End();
 
             settings.Write();
+        }
+
+        public override void WriteSettings()
+        {
+            foreach (Map map in Find.Maps)
+            {
+                if (map == null || !map.IsPlayerHome)
+                    continue;
+
+                foreach (Thing thing in map.listerThings.AllThings)
+                {
+                    if (thing is ServerRack rack)
+                    {
+                        rack.UpdateList();
+                    }
+                }
+            }
+            base.WriteSettings();
         }
 
         public override string SettingsCategory()

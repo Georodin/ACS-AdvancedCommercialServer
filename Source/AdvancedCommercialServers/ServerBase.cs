@@ -9,6 +9,20 @@ namespace AdvancedCommercialServers
         public float workingSpeed = 0f;
 
         public ServerBase() { }
+    }
+
+    public class ServerBasic : ServerBase
+    {
+
+    }
+
+    public class ServerAdvanced : ServerBase
+    {
+
+    }
+
+    public class ServerGlitterworld : ServerBase
+    {
 
     }
 }

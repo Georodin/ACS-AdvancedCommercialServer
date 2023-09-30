@@ -56,6 +56,11 @@
 			<compClass>AdvancedCommercialServers.ServerRackHeatPusherPowered</compClass>
 			<heatPerSecond>21</heatPerSecond>
 		</li>
+		<li Class="CompProperties_Facility">
+        <statOffsets>
+          <ResearchSpeedFactor>0.1</ResearchSpeedFactor>
+        </statOffsets>
+		</li>
 		</comps>
 		<tradeTags>
 			<li>ExoticMisc</li>
@@ -71,5 +76,8 @@
 		<inspectorTabs>
 			<li>ITab_Bills</li>
 		</inspectorTabs>
+	 <placeWorkers>
+      <li>PlaceWorker_ShowFacilitiesConnections</li>
+    </placeWorkers>
 	</ThingDef>
 </Defs>

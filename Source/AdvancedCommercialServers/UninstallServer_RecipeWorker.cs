@@ -29,7 +29,7 @@ namespace AdvancedCommercialServers
             if (targetThing is ServerRack serverRack)
             {
                 
-                serverRack.UninstallServer(billDoer, recipe.label);
+                serverRack.UninstallServer(billDoer, recipe);
             }
 
         }

@@ -39,7 +39,7 @@
         <ComponentIndustrial>3</ComponentIndustrial>
     </costList>
 	<modExtensions>
-    <li Class="AdvancedCommercialServers.ServerBase">
+    <li Class="AdvancedCommercialServers.ServerBasic">
        <powerConsumption>200</powerConsumption>
        <workingSpeed>1</workingSpeed>
     </li>
@@ -59,7 +59,7 @@
         <ComponentSpacer>2</ComponentSpacer>
     </costList>
 	<modExtensions>
-    <li Class="AdvancedCommercialServers.ServerBase">
+    <li Class="AdvancedCommercialServers.ServerAdvanced">
        <powerConsumption>500</powerConsumption>
        <workingSpeed>3</workingSpeed>
     </li>
@@ -79,7 +79,7 @@
         <ComponentSpacer>5</ComponentSpacer>
     </costList>
 	<modExtensions>
-    <li Class="AdvancedCommercialServers.ServerBase">
+    <li Class="AdvancedCommercialServers.ServerGlitterworld">
        <powerConsumption>1200</powerConsumption>
        <workingSpeed>8</workingSpeed>
     </li>
@@ -90,30 +90,3 @@
 </ThingDef>
 
 </Defs>
-
-<!--
-	<deconstructible>true</deconstructible>
-    <recipeMaker>
-        <yieldIngredients>
-            <Steel>30</Steel>
-            <ComponentIndustrial>2</ComponentIndustrial>
-        </yieldIngredients>
-	</recipeMaker>
-	<deconstructible>true</deconstructible>
-    <recipeMaker>
-        <yieldIngredients>
-            <Steel>50</Steel>
-            <ComponentIndustrial>4</ComponentIndustrial>
-            <ComponentSpacer>1</ComponentSpacer>
-        </yieldIngredients>
-    </recipeMaker>
-	<deconstructible>true</deconstructible>
-    <recipeMaker>
-        <yieldIngredients>
-            <Plasteel>40</Plasteel>
-            <ComponentIndustrial>4</ComponentIndustrial>
-            <ComponentSpacer>4</ComponentSpacer>
-        </yieldIngredients>
-    </recipeMaker>
-	
--->

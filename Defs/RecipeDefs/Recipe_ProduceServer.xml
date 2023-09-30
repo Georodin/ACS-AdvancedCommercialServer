@@ -3,6 +3,7 @@
     <RecipeDef>
         <defName>MakeServerBasic</defName>
         <label>make a basic server</label>
+		<jobString>Crafting a basic server.</jobString>
         <description>Craft a basic server useful for typical operations.</description>
         <workAmount>1200</workAmount>
         <recipeUsers>
@@ -43,6 +44,7 @@
     <RecipeDef>
         <defName>MakeServerAdvanced</defName>
         <label>make an advanced server</label>
+		<jobString>Crafting a advanced server.</jobString>
         <description>Craft an advanced server with higher processing power and storage.</description>
         <workAmount>2400</workAmount>
         <recipeUsers>
@@ -90,6 +92,7 @@
     <RecipeDef>
         <defName>MakeServerGlitterworld</defName>
         <label>make a glitterworld server</label>
+		<jobString>Crafting a glitterworld server.</jobString>
         <description>Craft a highly advanced glitterworld server with unparalleled processing speed and storage.</description>
         <workAmount>4800</workAmount>
         <recipeUsers>
