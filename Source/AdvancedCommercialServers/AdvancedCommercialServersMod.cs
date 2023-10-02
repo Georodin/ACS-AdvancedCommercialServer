@@ -90,6 +90,12 @@ namespace AdvancedCommercialServers
 
         public override void WriteSettings()
         {
+            if (Find.Maps == null || !Find.Maps.Any())
+            {
+                base.WriteSettings();
+                return;
+            }
+
             foreach (Map map in Find.Maps)
             {
                 if (map == null || !map.IsPlayerHome)
@@ -103,8 +109,10 @@ namespace AdvancedCommercialServers
                     }
                 }
             }
+
             base.WriteSettings();
         }
+
 
         public override string SettingsCategory()
         {
