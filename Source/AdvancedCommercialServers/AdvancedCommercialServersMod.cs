@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿using RimWorld;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using Verse;
 
 namespace AdvancedCommercialServers
@@ -6,6 +10,7 @@ namespace AdvancedCommercialServers
     public class AdvancedCommercialServersMod : Mod
     {
         private ServerModSettings settings;
+        private Vector2 scrollPosition;
 
         public AdvancedCommercialServersMod(ModContentPack content) : base(content)
         {
@@ -83,6 +88,12 @@ namespace AdvancedCommercialServers
             }
             listing_Standard.Gap(spacing);
 
+            if (listing_Standard.ButtonText("Open ThingDef List"))
+            {
+
+                Find.WindowStack.Add(new DefNamesWindow()); // This opens the new window
+            }
+
             listing_Standard.End();
 
             settings.Write();
@@ -117,6 +128,96 @@ namespace AdvancedCommercialServers
         public override string SettingsCategory()
         {
             return "Advanced Commercial Servers";
+        }
+    }
+
+    public class DefNamesWindow : Window
+    {
+        private Vector2 scrollPosition;
+
+        public DefNamesWindow()
+        {
+            this.doCloseButton = true; // Adds a close button to the window
+            this.closeOnClickedOutside = true; // Closes the window when clicked outside
+        }
+
+        private Vector2 leftScrollPosition;
+        private Vector2 rightScrollPosition;
+        private List<ThingDef> selectedThings = new List<ThingDef>();
+
+        public override void DoWindowContents(Rect inRect)
+        {
+            List<ThingDef> allThings = DefDatabase<ThingDef>.AllDefsListForReading
+                                            .Where(def => def.category == ThingCategory.Item)
+                                            .Where(def => !typeof(MinifiedThing).IsAssignableFrom(def.thingClass))
+                                            .OrderBy(def => def.label)
+                                            .ToList();
+
+            selectedThings = ItemList.List.Select(list => list.Key).OrderBy(def => def.label).ToList();
+
+            // Split the window into two halves
+            Rect leftRect = inRect;
+            leftRect.width /= 2;
+            Rect rightRect = leftRect;
+            rightRect.x = leftRect.xMax;
+
+            // Left List - Selected Items
+            Widgets.BeginScrollView(leftRect, ref leftScrollPosition, new Rect(0, 0, leftRect.width - 16, selectedThings.Count * 28), true);
+            var leftListing = new Listing_Standard();
+            leftListing.Begin(new Rect(0, 0, leftRect.width - 16, selectedThings.Count * 28));
+            foreach (ThingDef selectedDef in selectedThings.ToList().OrderBy(dev => dev.label)) // To avoid collection modified exception
+            {
+                Rect rowRect = leftListing.GetRect(28);
+                DrawThingRow(rowRect, selectedDef, () => ItemList.List.Remove(selectedDef));
+            }
+            leftListing.End();
+            Widgets.EndScrollView();
+
+            // Right List - All Items
+            Widgets.BeginScrollView(rightRect, ref rightScrollPosition, new Rect(0, 0, rightRect.width - 16, allThings.Count * 28), true);
+            var rightListing = new Listing_Standard();
+            rightListing.Begin(new Rect(0, 0, rightRect.width - 16, allThings.Count * 28));
+            foreach (ThingDef def in allThings)
+            {
+                if (!selectedThings.Contains(def))
+                {
+                    Rect rowRect = rightListing.GetRect(28);
+                    DrawThingRow(rowRect, def, () => ItemList.List.Add(def, false));
+                }
+            }
+            rightListing.End();
+            Widgets.EndScrollView();
+        }
+
+        void AddDefTo(ThingDef def, bool remove = false)
+        {
+            if (remove)
+            {
+                ItemList.List.Remove(def);
+            }
+            else
+            {
+                ItemList.List.Add(def, false);
+            }
+        }
+
+        private void DrawThingRow(Rect rowRect, ThingDef def, Action onClickAction)
+        {
+            // Adjust these values as necessary to fit your UI design
+            float iconSize = 24;
+            float padding = 4;
+            float textHeight = 24;
+            Rect iconRect = new Rect(rowRect.x, rowRect.y, iconSize, iconSize);
+            Rect textRect = new Rect(iconRect.xMax + padding, rowRect.y, rowRect.width - iconSize - padding, textHeight);
+
+            // Draw the icon
+            Widgets.ThingIcon(iconRect, def);
+
+            // Draw the button text
+            if (Widgets.ButtonText(textRect, def.label))
+            {
+                onClickAction?.Invoke();
+            }
         }
     }
 }

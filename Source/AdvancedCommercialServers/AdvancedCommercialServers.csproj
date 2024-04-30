@@ -17,7 +17,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\1.4\Assemblies\</OutputPath>
+    <OutputPath>..\..\1.5\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -32,11 +32,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>REF_DLL\0Harmony.dll</HintPath>
+      <HintPath>REF_DLL\1.5\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>REF_DLL\Assembly-CSharp.dll</HintPath>
+      <HintPath>REF_DLL\1.5\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -62,8 +62,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdvancedCommercialServersMod.cs" />
+    <Compile Include="ItemList.cs" />
     <Compile Include="ServerModSettings.cs" />
     <Compile Include="ServerRackHeatPusherPowered.cs" />
+    <Compile Include="ServerRackUtil.cs" />
     <Compile Include="SetupDialog.cs" />
     <Compile Include="UninstallServer_RecipeWorker.cs" />
     <Compile Include="InstallServer_RecipeWorker.cs" />

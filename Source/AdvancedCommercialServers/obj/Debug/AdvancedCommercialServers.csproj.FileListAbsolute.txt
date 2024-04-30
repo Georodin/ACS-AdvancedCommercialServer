@@ -8,3 +8,5 @@ C:\Users\Georodin\Documents\GitHub\ACS-AdvancedCommercialServer\1.4\Assemblies\A
 C:\Users\Georodin\Documents\GitHub\ACS-AdvancedCommercialServer\Source\AdvancedCommercialServers\obj\Debug\AdvancedCommercialServers.csproj.AssemblyReference.cache
 C:\Users\Georodin\Documents\GitHub\ACS-AdvancedCommercialServer\Source\AdvancedCommercialServers\obj\Debug\AdvancedCommercialServers.csproj.CoreCompileInputs.cache
 C:\Users\Georodin\Documents\GitHub\ACS-AdvancedCommercialServer\Source\AdvancedCommercialServers\obj\Debug\AdvancedCommercialServers.dll
+C:\Users\Georodin\Documents\GitHub\ACS-AdvancedCommercialServer\1.5\Assemblies\AdvancedCommercialServers.dll.config
+C:\Users\Georodin\Documents\GitHub\ACS-AdvancedCommercialServer\1.5\Assemblies\AdvancedCommercialServers.dll

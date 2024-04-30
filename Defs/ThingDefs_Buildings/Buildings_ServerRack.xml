@@ -52,10 +52,6 @@
 				<basePowerConsumption>0</basePowerConsumption>
 			</li>
 			<li Class="CompProperties_Flickable"/>
-		<li Class="CompProperties_HeatPusher">
-			<compClass>AdvancedCommercialServers.ServerRackHeatPusherPowered</compClass>
-			<heatPerSecond>21</heatPerSecond>
-		</li>
 		<li Class="CompProperties_Facility">
         <statOffsets>
           <ResearchSpeedFactor>0.1</ResearchSpeedFactor>

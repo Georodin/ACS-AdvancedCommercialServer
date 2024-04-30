@@ -5,6 +5,7 @@
   <url></url>
 <supportedVersions>
   <li>1.4</li>
+  <li>1.5</li>
 </supportedVersions>
 <packageId>georodin.advancedcommercialserver</packageId>
 <description>
@@ -16,6 +17,7 @@
 -> produce Resources with Server Racks
 -> use Research Speed of Server Racks with High-Tech Research Bench
 -> keep the Server Room cool
+-> check the mod settings for different Resources
 
 Resources:
 Silver
@@ -26,5 +28,6 @@ Steel
 Industrial Components
 Spacer Components
 Neutroamine
+Uranium
 </description>
 </ModMetaData>

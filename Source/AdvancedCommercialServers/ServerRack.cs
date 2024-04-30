@@ -9,21 +9,13 @@ namespace AdvancedCommercialServers
 {
     public class ServerRack : Building_WorkTable, IThingHolder, IExposable
     {
-
+        const float multiplier = .005f;
         public static Dictionary<ServerRack, float> ServerResearchAccumulated;
+        
 
-        //resources to generate
-        private Dictionary<ThingDef, bool> items = new Dictionary<ThingDef, bool>
-        {
-            { DefDatabase<ThingDef>.GetNamed("Silver"), true },
-            { DefDatabase<ThingDef>.GetNamed("Gold"), false },
-            { DefDatabase<ThingDef>.GetNamed("Jade"), false },
-            { DefDatabase<ThingDef>.GetNamed("Plasteel"), false },
-            { DefDatabase<ThingDef>.GetNamed("Steel"), false },
-            { DefDatabase<ThingDef>.GetNamed("ComponentIndustrial"), false },
-            { DefDatabase<ThingDef>.GetNamed("ComponentSpacer"), false },
-            { DefDatabase<ThingDef>.GetNamed("Neutroamine"), false }
-        };
+        public Dictionary<ThingDef, bool> List = new Dictionary<ThingDef, bool>();
+
+        CompPowerTrader powerTrader;
 
         public enum UninstallType
         {
@@ -52,6 +44,7 @@ namespace AdvancedCommercialServers
         //generation related fields
         bool isServerDisabled = false;
         float currentProgress = 0f;
+        float normalizedProgress = 0f;
         private int currentResourceIndex = 0;
 
         //public getters
@@ -144,7 +137,7 @@ namespace AdvancedCommercialServers
         //Expose data to savegame
         public override void ExposeData()
         {
-            Scribe_Collections.Look(ref items, "items", LookMode.Def, LookMode.Value);
+            Scribe_Collections.Look(ref List, "items", LookMode.Def, LookMode.Value);
             Scribe_Deep.Look(ref innerContainer, false, "innerContainer", this);
             Scribe_Values.Look(ref currentProgress, "currentProgress", 0f);
             Scribe_Values.Look(ref currentResourceIndex, "currentIndex", 0);
@@ -180,26 +173,17 @@ namespace AdvancedCommercialServers
         {
             activatedItems.Clear();
 
-            if (items == null || items.Count != 8)
+            if(!ItemList.HaveSameKeys(List, ItemList.List))
             {
-                items = new Dictionary<ThingDef, bool>
-                {
-                    { DefDatabase<ThingDef>.GetNamed("Silver"), true },
-                    { DefDatabase<ThingDef>.GetNamed("Gold"), false },
-                    { DefDatabase<ThingDef>.GetNamed("Jade"), false },
-                    { DefDatabase<ThingDef>.GetNamed("Plasteel"), false },
-                    { DefDatabase<ThingDef>.GetNamed("Steel"), false },
-                    { DefDatabase<ThingDef>.GetNamed("ComponentIndustrial"), false },
-                    { DefDatabase<ThingDef>.GetNamed("ComponentSpacer"), false },
-                    { DefDatabase<ThingDef>.GetNamed("Neutroamine"), false }
-                };
+                List = ItemList.List.ToDictionary(entry => entry.Key,entry => entry.Value);
             }
 
             // Populate the list with the activated items.
-            foreach (var item in items)
+            foreach (var item in List)
             {
                 if (item.Value)
                     activatedItems.Add(item.Key);
+                //Log.Message($"item: {item.Key.label} is {item.Value}");
             }
 
             if (activatedItems.Count > 0)
@@ -214,42 +198,26 @@ namespace AdvancedCommercialServers
 
         void UpdateProgress()
         {
-            currentProgress +=
-                (curr_ServerSpeed * .008f) * ServerModSettings.generationSpeedMultiplier;
-
-            if (currentProgress >= 100)
+            if (activatedItems.Count == 0)
             {
-                if (activatedItems.Count == 0)
-                {
-                    currentProgress = 100;
-                }
-                else
-                {
-                    currentProgress = 0;
-                    ProcessActivatedItem();
-                }
-            }
-        }
-
-        public override void Tick()
-        {
-            base.Tick();
-            if (this.GetComp<CompPowerTrader>().PowerOn)
-            {
-                if (this.IsHashIntervalTick(30)) // RimWorld has 60 ticks per in-game second
-                {
-                    UpdateProgress(); // One second has passed in game time
-                }
+                return;
             }
 
-            //lazy check for mod setting change
-            if (this.IsHashIntervalTick(600))
+            ThingDef currentItem = activatedItems[currentResourceIndex];
+            float valueComponent = DefDatabase<ThingDef>.GetNamed("ComponentSpacer").BaseMarketValue;
+            float itemsToSpawn = Mathf.Max(1, Mathf.Floor(valueComponent / currentItem.BaseMarketValue));
+            float totalProgressNeeded = currentItem.BaseMarketValue * itemsToSpawn;
+
+            // Adjust progress increase rate based on the server speed and generation multiplier.
+            currentProgress += (curr_ServerSpeed * .008f) * ServerModSettings.generationSpeedMultiplier;
+
+            // Normalize current progress to a 0-100 scale based on total progress needed
+            normalizedProgress = (currentProgress / totalProgressNeeded) * 100;
+
+            if (normalizedProgress >= 100)
             {
-                if (powerConsumption != ServerModSettings.powerConsumption)
-                {
-                    powerConsumption = ServerModSettings.powerConsumption;
-                    UpdateServerRack();
-                }
+                currentProgress = 0; // Reset progress for the next cycle
+                ProcessActivatedItem();
             }
         }
 
@@ -267,13 +235,43 @@ namespace AdvancedCommercialServers
 
         void SpawnItem(ThingDef item)
         {
-            float valueComponent = DefDatabase<ThingDef>
-                .GetNamed("ComponentSpacer")
-                .BaseMarketValue;
+            float valueComponent = DefDatabase<ThingDef>.GetNamed("ComponentSpacer").BaseMarketValue;
+            float itemsToSpawn = Mathf.Max(1, Mathf.Floor(valueComponent / item.BaseMarketValue));
 
             Thing itemStack = ThingMaker.MakeThing(item);
-            itemStack.stackCount = (int)Math.Floor(valueComponent / item.BaseMarketValue);
+            itemStack.stackCount = (int)itemsToSpawn;
             GenPlace.TryPlaceThing(itemStack, this.Position, Map, ThingPlaceMode.Near);
+        }
+
+        public override void Tick()
+        {
+            base.Tick();
+
+            if (powerTrader == null)
+            {
+                powerTrader = this.GetComp<CompPowerTrader>();
+            }
+
+            if (this.IsHashIntervalTick(60)) // RimWorld has 60 ticks per in-game second
+            {
+                if (powerTrader.PowerOn)
+                {
+                    UpdateProgress(); // One second has passed in game time
+
+                    if (ServerModSettings.generateHeat)
+                    {
+                        float energy = Math.Abs((this.GetComp<CompPowerTrader>().PowerOutput * multiplier) * ServerModSettings.generateHeatMultiplier);
+                        GenTemperature.PushHeat(this.Position, this.Map, energy);
+                    }
+                }
+
+                if (powerConsumption != ServerModSettings.powerConsumption)
+                {
+                    powerConsumption = ServerModSettings.powerConsumption;
+                    UpdateServerRack();
+                }
+                this.CheckShutdownTemperature();
+            }
         }
 
         public override void PostMapInit()
@@ -468,40 +466,16 @@ namespace AdvancedCommercialServers
         {
             get
             {
+                ServerRackUtil.EnsureGraphicsInitialized();  // Initialize graphics if not already done.
                 int sum = innerContainer.Sum(t => t.stackCount);
-                if (sum > 0)
+                if (sum > 0 && ServerRackUtil.PreGeneratedGraphics.TryGetValue(sum, out Graphic graphic))
                 {
-                    string texturePath = $"Things/Building/ServerRack/ServerRack_fill_{sum:D2}";
                     if (Rotation == Rot4.South)
                     {
-                        Graphic _graphic = GraphicDatabase.Get<Graphic_Single>(
-                            texturePath,
-                            ShaderDatabase.Cutout,
-                            new UnityEngine.Vector2(2.6f, 2.6f),
-                            UnityEngine.Color.white
-                        );
-                        GraphicData graphicData = new GraphicData();
-                        graphicData.drawSize = new UnityEngine.Vector2(2.6f, 2.6f);
-                        graphicData.drawOffset = new UnityEngine.Vector3(0f, 0f, 0.5f);
-                        graphicData.shadowData = new ShadowData
-                        {
-                            volume = new UnityEngine.Vector3(0.3f, 0.5f, 0.3f),
-                            offset = new UnityEngine.Vector3(0f, 0f, -0.23f)
-                        };
-
-                        _graphic.data = graphicData;
-
-                        return _graphic;
-                    }
-                    else
-                    {
-                        return base.Graphic;
+                        return graphic;
                     }
                 }
-                else
-                {
-                    return base.Graphic;
-                }
+                return base.Graphic;
             }
         }
 
@@ -565,7 +539,7 @@ namespace AdvancedCommercialServers
                     "Awaiting payout: "
                     + activatedItems[currentResourceIndex]
                     + " x"
-                    + Math.Floor(valueComponent / activatedItems[currentResourceIndex].BaseMarketValue)
+                    + Mathf.Max(1, Mathf.Floor(valueComponent / activatedItems[currentResourceIndex].BaseMarketValue))
                     + "\n";
             }
             else
@@ -573,7 +547,7 @@ namespace AdvancedCommercialServers
                 additionalInfo += "No payout selected...\n";
             }
 
-            additionalInfo += "Progress: " + currentProgress.ToString("F2") + "%\n";
+            additionalInfo += "Progress: " + normalizedProgress.ToString("F2") + "%\n";
 
             if (curr_BasicServerCount > 0)
             {
@@ -691,7 +665,7 @@ namespace AdvancedCommercialServers
 
         public void CopySettings()
         {
-            copiedItems = items;
+            copiedItems = List.ToDictionary(entry => entry.Key, entry => entry.Value);
             Messages.Message("Copied settings", MessageTypeDefOf.TaskCompletion, historical: false);
         }
 
@@ -699,7 +673,7 @@ namespace AdvancedCommercialServers
         {
             if (copiedItems != null)
             {
-                items = copiedItems;
+                List = copiedItems.ToDictionary(entry => entry.Key, entry => entry.Value);
                 Messages.Message(
                     "Pasted settings",
                     MessageTypeDefOf.TaskCompletion,
@@ -710,7 +684,7 @@ namespace AdvancedCommercialServers
 
         public void MessageSetup()
         {
-            Find.WindowStack.Add(new SetupDialog(items, this));
+            Find.WindowStack.Add(new SetupDialog(this));
         }
     }
 }

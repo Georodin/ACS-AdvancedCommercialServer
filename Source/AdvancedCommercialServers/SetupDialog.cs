@@ -8,57 +8,86 @@ namespace AdvancedCommercialServers
 {
     public class SetupDialog : Window
     {
-        private Dictionary<ThingDef, bool> items;
         private ServerRack rack;
+        private Vector2 leftScrollPosition;
 
-        public SetupDialog(Dictionary<ThingDef, bool> items, ServerRack rack)
+        public SetupDialog(ServerRack rack)
         {
-            this.items = items;
             this.rack = rack;
+            closeOnCancel = true;  // Ensures that the standard window close operation is linked to key events.
         }
 
         public override void DoWindowContents(Rect inRect)
         {
+            float topPadding = 15f;
+            float bottomPadding = 50f;
+            float iconSize = 24f;  // Define icon size, ensuring it's square
+            float scrollViewHeight = inRect.height - topPadding - bottomPadding - 30f; // Space for OK button and gap
+
             Listing_Standard listingStandard = new Listing_Standard();
             listingStandard.Begin(inRect);
 
-            float valueComponent = DefDatabase<ThingDef>.GetNamed("ComponentSpacer").BaseMarketValue;
+            Text.Font = GameFont.Medium;
+            listingStandard.Label("Payout Resources");
+            listingStandard.Gap(10f);  // Adds a small gap after the title
 
-            Text.Font = GameFont.Medium; // Change to your preferred font size
-            listingStandard.Label("Payout Resources"); // This will add a label at the current position in the listing
-            Text.Font = GameFont.Small; // Reset to the default font size
+            Rect scrollViewRect = new Rect(0, listingStandard.CurHeight, inRect.width, scrollViewHeight);
+            Rect scrollContentRect = new Rect(0, 0, scrollViewRect.width - 16, rack.List.Count * (32 + 4) + 10);
+            Widgets.BeginScrollView(scrollViewRect, ref leftScrollPosition, scrollContentRect, true);
 
-            foreach (var item in items.Keys.ToList()) // ToList to avoid collection modification issues
+            var itemListing = new Listing_Standard();
+            itemListing.Begin(scrollContentRect);
+            foreach (var item in rack.List.Keys.ToList().OrderBy(dev => dev.label))
             {
-                bool state = items[item];
+                bool state = rack.List[item];
+                //Log.Message($"itemDiag: {item} is {state}");
+                Texture2D itemIcon = item.uiIcon;
+                GUIContent itemContent = new GUIContent(" " + item.label + " x" + Mathf.Max(1f, Mathf.Floor(DefDatabase<ThingDef>.GetNamed("ComponentSpacer").BaseMarketValue / item.BaseMarketValue)), itemIcon);
 
-                Texture2D itemIcon = item.uiIcon; // Assuming uiIcon is accessible and contains the icon texture for the ThingDef
-                GUIContent itemContent = new GUIContent(itemIcon);
+                Rect rowRect = itemListing.GetRect(30);
 
-                Texture2D stateIcon = state ? Widgets.CheckboxOnTex : Widgets.CheckboxOffTex;
-
-                Rect rowRect = listingStandard.GetRect(30); // Adjust the height to match your icons
-
-                string nameAndCount = item.label + " x" + Math.Floor(valueComponent / item.BaseMarketValue);
-
-                Widgets.Label(new Rect(rowRect.x, rowRect.y, 30, 30), itemContent);
-                Widgets.Label(new Rect(rowRect.x + 35, rowRect.y, 200, 30), nameAndCount); // Use the label of the ThingDef as the displayed name
-
-                // Draw the toggle button with checkmark or X icon
-                if (Widgets.ButtonImage(new Rect(rowRect.x + 240, rowRect.y, 30, 30), stateIcon))
+                // Adjusting the icon to be square
+                Rect iconRect = new Rect(rowRect.x, rowRect.y, iconSize, iconSize);
+                if (Widgets.ButtonImage(iconRect, itemIcon))
                 {
-                    items[item] = !state; // Toggle state when button is pressed
+                    rack.List[item] = !state; // Toggle state when icon is clicked
                 }
+
+                // Adjust label position
+                Widgets.Label(new Rect(iconRect.xMax + 5, rowRect.y, rowRect.width - iconSize - 35, rowRect.height), itemContent.text);
+
+                // Checkbox positioned to the right of the label
+                Rect checkboxRect = new Rect(rowRect.x + rowRect.width - 30, rowRect.y, 24, 24);
+                Widgets.Checkbox(checkboxRect.x, checkboxRect.y, ref state);
+
+                rack.List[item] = state;  // Update the item state after the checkbox is used
+
+                itemListing.Gap(4f); // Adds a small gap between items
             }
+            itemListing.End();
+            Widgets.EndScrollView();
 
-            listingStandard.End(); // Don't forget to end the listing
-
-            Rect okButtonRect = listingStandard.GetRect(30); // Replace 30 with the desired height of your button.
+            Rect okButtonRect = new Rect(0, inRect.height - 45f, inRect.width, 30f);
             if (Widgets.ButtonText(okButtonRect, "OK"))
             {
-                rack.UpdateList();
-                Close();
+                CloseWindow();
             }
+
+            listingStandard.End();
         }
+
+        public override void OnAcceptKeyPressed()
+        {
+            base.OnAcceptKeyPressed();
+            CloseWindow();
+        }
+
+        private void CloseWindow()
+        {
+            rack.UpdateList();
+            Close();
+        }
+
+
     }
 }
