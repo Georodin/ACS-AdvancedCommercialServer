@@ -2,7 +2,7 @@
 
 Welcome to the Advanced Commercial Servers Mod! With this mod, you can elevate your RimWorld experience by generating various resources using servers!
 
-![Preview Image](/Source/Photoshop/preview.jpg)
+![Preview Image](/About/preview.jpg)
 
 ## Generatable Resources
 
