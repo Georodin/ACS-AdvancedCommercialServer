@@ -16,6 +16,7 @@ Using the servers, the following resources can be generated:
 ![Industrial Components](/Source/TexturesPreview/ComponentIndustrial.png)
 ![Spacer Components](/Source/TexturesPreview/ComponentSpacer.png)
 ![Neutroamine](/Source/TexturesPreview/Neutroamine.png)
+![Uranium](/Source/TexturesPreview/Uranium.png)
 
 - Silver
 - Gold
@@ -25,6 +26,24 @@ Using the servers, the following resources can be generated:
 - Industrial Components
 - Spacer Components
 - Neutroamine
+- Uranium
+
+## Update April 2024
+
+- Updated to version 1.5
+- Customizable resource list available in mod settings
+- Fixed heat pusher issue
+- Adjusted resource generation
+
+### Details:
+1. **Customizable Resource List in Mod Settings:**  
+   You can now add any item to your generation list via the mod menu. However, be careful as some items may not function correctly when spawned or are not intended to be spawned this way. Proceed with caution.
+
+2. **Heat Pusher Issue Fixed:**  
+   Previously, all Server Racks shared the same heat emission, even when empty. Now, each Rack pushes heat according to its power consumption.
+
+3. **Adjusted Resource Generation:**  
+   Generation is now relative to the market value of each item, to account for items significantly more expensive than Spacer Components.
 
 ## Generating Mechanism
 
