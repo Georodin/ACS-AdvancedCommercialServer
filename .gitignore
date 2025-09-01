@@ -1,2 +1,21 @@
+# Build artifacts
+*.dll
+*.pdb
+*.mdb
+*.config
 
-1.5/Assemblies/AdvancedCommercialServers.dll.config
+# Visual Studio / Rider / IDE specific
+.vs/
+.idea/
+*.user
+*.suo
+*.cache
+*.csproj.user
+*.vsidx
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
