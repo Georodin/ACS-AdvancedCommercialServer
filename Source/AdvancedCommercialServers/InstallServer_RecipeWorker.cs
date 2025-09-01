@@ -11,7 +11,7 @@ namespace AdvancedCommercialServers
 
             if (thing is ServerRack rack)
             {
-                return rack.IsInstallAvailableNow();
+                return rack.Core.IsInstallAvailableNow();
             }
 
             return false;
@@ -27,9 +27,9 @@ namespace AdvancedCommercialServers
 
             Thing targetThing = billDoer.CurJob.GetTarget(Verse.AI.TargetIndex.A).Thing;
 
-            if (targetThing is ServerRack serverRack)
+            if (targetThing is ServerRack rack)
             {
-                serverRack.InstallServer(ingredients[0]);
+                rack.Core.InstallServer(ingredients[0]);
             }
 
             base.Notify_IterationCompleted(billDoer, ingredients);

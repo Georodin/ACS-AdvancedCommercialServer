@@ -1,16 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
 
 namespace AdvancedCommercialServers
 {
-    internal class ServerRackUtil
+    public class ServerRackUtil
     {
         public static Dictionary<int, Graphic> PreGeneratedGraphics;
+
+        private ServerRack parent;
+
+        public ServerRackUtil(ServerRack parent)
+        {
+            this.parent = parent;
+        }
 
         public static void EnsureGraphicsInitialized()
         {
@@ -41,5 +45,33 @@ namespace AdvancedCommercialServers
                 }
             }
         }
+
+        public void ValidateOrResetList()
+        {
+            bool fallback = false;
+
+            if (parent.List == null || parent.List.Count == 0)
+            {
+                fallback = true;
+            }
+            else
+            {
+                foreach (var key in parent.List.Keys.ToList())
+                {
+                    if (key == null || DefDatabase<ThingDef>.GetNamedSilentFail(key.defName) == null)
+                    {
+                        fallback = true;
+                        break;
+                    }
+                }
+            }
+
+            if (fallback)
+            {
+                Log.Warning("[ACS] Resource List is empty or invalid. Falling back to default list.");
+                parent.List = ItemList.List.ToDictionary(entry => entry.Key, entry => entry.Value);
+            }
+        }
+
     }
 }

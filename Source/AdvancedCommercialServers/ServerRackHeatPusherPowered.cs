@@ -9,39 +9,41 @@ namespace AdvancedCommercialServers
     {
         const float multiplier = .005f;
 
+        private ServerRack parent;
+
+        public ServerRackHeatPusherPowered(ServerRack parent)
+        {
+            this.parent = parent;
+        }
+
         public override void CompTick()
         {
 
             if (powerComp.PowerOn)
             {
-                if (Time.frameCount % 100 == 0)
+                if (parent.IsHashIntervalTick(600))
                 {
-                    Log.Message($"HEAT:{ServerModSettings.generateHeat}");
+                    parent.StateManager.CheckAutoShutdownTemperature();
                 }
-                if (ServerModSettings.generateHeat)
+
+                if (parent.StateManager.IsOperational)
                 {
-                    // Retrieve the CompPowerTrader component from the parent thing
-                    var powerComp = this.parent.GetComp<CompPowerTrader>();
-
-                    if (powerComp == null)
-                    {
-                        return;
-                    }
-                    this.Props.heatPerSecond = Math.Abs((powerComp.PowerOutput * multiplier) * ServerModSettings.generateHeatMultiplier);
-                    base.CompTick();
+                    PushHeat();
                 }
-                // Adjust the heatPerSecond according to the absolute power consumption.
 
-
-                if (Find.TickManager.TicksGame % 600 == 0)
-                {
-                    if (this.parent is ServerRack rack)
-                    {
-                        rack.CheckShutdownTemperature();
-                    }
-                }
+                base.CompTick();
             }
-           
         }
+
+        private void PushHeat()
+        {
+            var powerTrader = this.parent.GetComp<CompPowerTrader>();
+            if (powerTrader.PowerOn && ServerModSettings.generateHeat)
+            {
+                float heat = Math.Abs(powerTrader.PowerOutput) * multiplier * ServerModSettings.generateHeatMultiplier;
+                GenTemperature.PushHeat(parent.Position, parent.Map, heat);
+            }
+        }
+
     }
 }
