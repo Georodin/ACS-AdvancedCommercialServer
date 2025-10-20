@@ -3,6 +3,7 @@ using RimWorld;
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Linq; // << for Any()
 
 namespace AdvancedCommercialServers
 {
@@ -36,6 +37,12 @@ namespace AdvancedCommercialServers
 
         public void AdvanceProgress()
         {
+            // Light self-healing: if nothing is active but there IS a list, try to resync once.
+            if ((activatedItems == null || activatedItems.Count == 0) && parent?.List != null && parent.List.Any())
+            {
+                UpdateActivatedItems(parent.List);
+            }
+
             if (activatedItems.Count == 0 || !parent.StateManager.IsOperational)
                 return;
 
@@ -45,7 +52,9 @@ namespace AdvancedCommercialServers
             float itemsToSpawn = Mathf.Max(1, Mathf.Floor(valueComponent / currentItem.BaseMarketValue));
             float totalProgressNeeded = currentItem.BaseMarketValue * itemsToSpawn;
 
-            currentProgress += parent.Core.CurrentGenerationSpeed * 0.008f * ServerModSettings.generationSpeedMultiplier;
+            // Note: CurrentGenerationSpeed already includes ServerModSettings.generationSpeedMultiplier,
+            // so we do NOT multiply by it again here (it was effectively double-counted).
+            currentProgress += parent.Core.CurrentGenerationSpeed * 0.008f;
 
             normalizedProgress = (currentProgress / totalProgressNeeded) * 100f;
 
@@ -59,6 +68,10 @@ namespace AdvancedCommercialServers
 
         public void UpdateActivatedItems(Dictionary<ThingDef, bool> itemSelection)
         {
+            if (activatedItems == null)
+            {
+                activatedItems = new List<ThingDef>();
+            }
             activatedItems.Clear();
 
             foreach (var kvp in itemSelection)

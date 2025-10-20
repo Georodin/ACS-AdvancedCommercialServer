@@ -1,4 +1,5 @@
-﻿using Verse;
+﻿using System.Collections.Generic;
+using Verse;
 
 namespace AdvancedCommercialServers
 {
@@ -11,6 +12,9 @@ namespace AdvancedCommercialServers
         public static float powerConsumption = 1.0f;
         public static int autoShutdownTemperatureCelsius = 50;
 
+        // NEW: persist custom outputs by defName (keep it simple + robust across mods)
+        public static List<string> customThingDefs = new List<string>();
+
         public override void ExposeData()
         {
             base.ExposeData();
@@ -20,6 +24,10 @@ namespace AdvancedCommercialServers
             Scribe_Values.Look(ref researchMultiplier, "researchMultiplier", 1.0f);
             Scribe_Values.Look(ref powerConsumption, "powerConsumption", 1.0f);
             Scribe_Values.Look(ref autoShutdownTemperatureCelsius, "autoShutdownTemperatureCelsius", 50);
+
+            // NEW: persist custom defs
+            Scribe_Collections.Look(ref customThingDefs, "acs_customThingDefs", LookMode.Value);
+            if (customThingDefs == null) customThingDefs = new List<string>();
         }
     }
 }

@@ -188,20 +188,32 @@ namespace AdvancedCommercialServers
 
         private void DrawThingRow(Rect rowRect, ThingDef def, Action onClickAction)
         {
-            // Adjust these values as necessary to fit your UI design
-            float iconSize = 24;
-            float padding = 4;
-            float textHeight = 24;
+            float iconSize = 24f;
+            float padding = 4f;
+            float textHeight = 24f;
+
             Rect iconRect = new Rect(rowRect.x, rowRect.y, iconSize, iconSize);
             Rect textRect = new Rect(iconRect.xMax + padding, rowRect.y, rowRect.width - iconSize - padding, textHeight);
 
-            // Draw the icon
             Widgets.ThingIcon(iconRect, def);
 
-            // Draw the button text
             if (Widgets.ButtonText(textRect, def.label))
             {
+                // Original behavior
                 onClickAction?.Invoke();
+
+                // NEW: persist to settings
+                if (!ServerModSettings.customThingDefs.Contains(def.defName))
+                {
+                    ServerModSettings.customThingDefs.Add(def.defName);
+                    // Also reflect immediately in global list
+                    if (!ItemList.List.ContainsKey(def))
+                        ItemList.List.Add(def, false);
+
+                    // Let existing racks pick it up when opening the dialog or at next validation
+                    var mod = LoadedModManager.GetMod<AdvancedCommercialServersMod>();
+                    mod?.GetSettings<ServerModSettings>()?.Write();
+                }
             }
         }
     }

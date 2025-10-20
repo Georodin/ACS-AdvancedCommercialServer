@@ -88,8 +88,13 @@ namespace AdvancedCommercialServers
             }
         }
 
+
         public void MessageSetup()
         {
+            // NEW: make sure rack.List has newly added global defs
+            parent?.Util?.ValidateItemList();         // merge + fallback if needed
+            ItemList.ApplyCustomDefsFromSettings();   // make sure global list includes persisted items
+
             Find.WindowStack.Add(new SetupDialog(parent));
         }
     }
