@@ -11,8 +11,7 @@ namespace AdvancedCommercialServers
 {
     internal class ItemList
     {
-
-        //resources to generate
+        // resources to generate (defaults)
         public static Dictionary<ThingDef, bool> List = new Dictionary<ThingDef, bool>
         {
             { DefDatabase<ThingDef>.GetNamed("Silver"), true },
@@ -26,6 +25,7 @@ namespace AdvancedCommercialServers
             { DefDatabase<ThingDef>.GetNamed("Neutroamine"), false }
         };
 
+<<<<<<< Updated upstream
         public static bool HaveSameKeys(Dictionary<ThingDef, bool> dict1, Dictionary<ThingDef, bool> dict2)
         {
             // Check if both dictionaries have the same count of keys
@@ -45,6 +45,23 @@ namespace AdvancedCommercialServers
 
             // If all keys match, return true
             return true;
+=======
+        // NEW: call this after settings load or when settings change
+        public static void ApplyCustomDefsFromSettings()
+        {
+            if (ServerModSettings.customThingDefs == null) return;
+
+            foreach (var defName in ServerModSettings.customThingDefs)
+            {
+                if (string.IsNullOrEmpty(defName)) continue;
+                var def = DefDatabase<ThingDef>.GetNamedSilentFail(defName);
+                if (def != null && !List.ContainsKey(def))
+                {
+                    // default to disabled; players toggle per rack
+                    List.Add(def, false);
+                }
+            }
+>>>>>>> Stashed changes
         }
     }
 }

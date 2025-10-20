@@ -1,2 +1,6 @@
 
 1.5/Assemblies/AdvancedCommercialServers.dll.config
+*.db
+/Source/AdvancedCommercialServers/.vs/AdvancedCommercialServers/FileContentIndex
+/Source/AdvancedCommercialServers/.vs/AdvancedCommercialServers/CopilotIndices/17.14.1290.42047
+*.json

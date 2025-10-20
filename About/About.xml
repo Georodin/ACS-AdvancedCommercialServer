@@ -2,32 +2,38 @@
 <ModMetaData>
   <name>ACS - Advanced Commercial Server</name>
   <author>Georodin</author>
-  <url></url>
-<supportedVersions>
-  <li>1.4</li>
-  <li>1.5</li>
-</supportedVersions>
-<packageId>georodin.advancedcommercialserver</packageId>
-<description>
--> research Servers
--> fabricate Servers
--> build Server Racks
--> fill Server Racks with Servers
--> power Server Racks
--> produce Resources with Server Racks
--> use Research Speed of Server Racks with High-Tech Research Bench
--> keep the Server Room cool
--> check the mod settings for different Resources
+  <url>https://github.com/Georodin/ACS-AdvancedCommercialServer</url>
+
+  <supportedVersions>
+    <li>1.4</li>
+    <li>1.5</li>
+    <li>1.6</li>
+  </supportedVersions>
+
+  <packageId>georodin.advancedcommercialserver</packageId>
+
+  <description>
+ACS lets you build Server Racks, install up to 12 Servers per rack, power and cool them, and generate configurable resources.
+All racks also provide combined research speed when placed next to a High-Tech Research Bench.
+
+— Workflow —
+• research Servers
+• fabricate Servers
+• build Server Racks
+• fill Server Racks with Servers
+• power and cool Server Racks
+• produce Resources (configurable in Mod Settings)
+• use Research Speed with High-Tech Research Bench
 
 Resources:
-Silver
-Gold
-Jade
-Plasteel
-Steel
-Industrial Components
-Spacer Components
-Neutroamine
-Uranium
-</description>
+Silver, Gold, Jade, Plasteel, Steel, Industrial Components, Spacer Components, Neutroamine, Uranium
+
+— October 2025 —
+• RimWorld 1.6 support (1.5 build maintained)
+• Core generation system refactor
+• Custom resource list now persists
+• Resource settings application/serialization fixed
+
+Maintainer time is limited — contributions welcome (PRs appreciated).
+  </description>
 </ModMetaData>

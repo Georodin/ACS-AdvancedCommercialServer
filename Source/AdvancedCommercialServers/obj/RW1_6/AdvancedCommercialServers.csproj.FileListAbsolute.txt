@@ -1,0 +1,5 @@
+C:\Users\Georodin\Documents\GitHub\ACS-AdvancedCommercialServer\Source\AdvancedCommercialServers\obj\RW1_6\AdvancedCommercialServers.dll
+C:\Users\Georodin\Documents\GitHub\ACS-AdvancedCommercialServer\1.6\Assemblies\AdvancedCommercialServers.dll.config
+C:\Users\Georodin\Documents\GitHub\ACS-AdvancedCommercialServer\1.6\Assemblies\AdvancedCommercialServers.dll
+C:\Users\Georodin\Documents\GitHub\ACS-AdvancedCommercialServer\Source\AdvancedCommercialServers\obj\RW1_6\AdvancedCommercialServers.csproj.AssemblyReference.cache
+C:\Users\Georodin\Documents\GitHub\ACS-AdvancedCommercialServer\Source\AdvancedCommercialServers\obj\RW1_6\AdvancedCommercialServers.csproj.CoreCompileInputs.cache

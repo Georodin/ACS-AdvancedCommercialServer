@@ -54,7 +54,7 @@
 			<li Class="CompProperties_Flickable"/>
 		<li Class="CompProperties_Facility">
         <statOffsets>
-          <ResearchSpeedFactor>0.1</ResearchSpeedFactor>
+          <ResearchSpeedFactor>0</ResearchSpeedFactor>
         </statOffsets>
 		</li>
 		</comps>
