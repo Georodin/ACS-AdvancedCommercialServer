@@ -2,7 +2,7 @@
 
 Generate resources with data-center flair. Build server racks, install servers, feed them power, manage the heat, and watch the goods roll in.
 
-![Preview Image](/About/preview.jpg)
+![Preview Image](/About/preview.png)
 
 ---
 
