@@ -11,34 +11,6 @@ namespace AdvancedCommercialServers
         // Roughly: 1 kW -> ~4 heat/second (vanilla heater ~21 heat/sec), tweak as you like
         private const float HeatPerSecondPerKW = 2f;
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-        public override void CompTick()
-=======
-        private readonly ServerRack parent;
-
-        public ServerRackHeatPusherPowered(ServerRack parent)
-        {
-            this.parent = parent; // Don't touch Label/Comps here
-        }
-
-        public void Tick()
->>>>>>> Stashed changes
-        {
-            if (parent == null || parent.Map == null) return;
-
-<<<<<<< Updated upstream
-            if (powerComp.PowerOn)
-            {
-                if (Time.frameCount % 100 == 0)
-                {
-                    Log.Message($"HEAT:{ServerModSettings.generateHeat}");
-                }
-                if (ServerModSettings.generateHeat)
-                {
-                    // Retrieve the CompPowerTrader component from the parent thing
-                    var powerComp = this.parent.GetComp<CompPowerTrader>();
-=======
         private readonly ServerRack parent;
 
         public ServerRackHeatPusherPowered(ServerRack parent)
@@ -49,7 +21,6 @@ namespace AdvancedCommercialServers
         public void Tick()
         {
             if (parent == null || parent.Map == null) return;
->>>>>>> 43be1abc7c52993afb6ee92914c1b3d011385686
 
             // keep your 10s auto-shutdown check
             if (parent.IsHashIntervalTick(600))
@@ -57,25 +28,6 @@ namespace AdvancedCommercialServers
 
             if (!(parent.StateManager?.IsOperational ?? false)) return;
 
-<<<<<<< HEAD
-                if (Find.TickManager.TicksGame % 600 == 0)
-                {
-                    if (this.parent is ServerRack rack)
-                    {
-                        rack.CheckShutdownTemperature();
-                    }
-                }
-            }
-           
-=======
-            // keep your 10s auto-shutdown check
-            if (parent.IsHashIntervalTick(600))
-                parent.StateManager?.CheckAutoShutdownTemperature();
-
-            if (!(parent.StateManager?.IsOperational ?? false)) return;
-
-=======
->>>>>>> 43be1abc7c52993afb6ee92914c1b3d011385686
             var powerTrader = parent.GetComp<CompPowerTrader>();
             if (powerTrader == null || !powerTrader.PowerOn) return;
             if (!ServerModSettings.generateHeat) return;
@@ -96,10 +48,6 @@ namespace AdvancedCommercialServers
 
             if (heatAmount > 0.001f)
                 GenTemperature.PushHeat(parent.Position, parent.Map, heatAmount);
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> 43be1abc7c52993afb6ee92914c1b3d011385686
         }
     }
 }

@@ -1,27 +1,9 @@
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-﻿using RimWorld;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-using Verse;
-=======
 ﻿using Verse;
 using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine; // for Mathf
 using System.Diagnostics; // StackTrace
->>>>>>> Stashed changes
-=======
-﻿using Verse;
-using RimWorld;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine; // for Mathf
-using System.Diagnostics; // StackTrace
->>>>>>> 43be1abc7c52993afb6ee92914c1b3d011385686
 
 namespace AdvancedCommercialServers
 {
@@ -38,29 +20,7 @@ namespace AdvancedCommercialServers
 
         private static Dictionary<ThingDef, bool> copiedItems;
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-        public enum UninstallType
-=======
         public static bool HasCopiedSettings => copiedItems != null;
-
-        public ThingOwner innerContainer;
-
-        private bool isInitialized = false;
-
-        // cache to avoid repeated DefDatabase lookups
-        private static StatDef _researchSpeedFactorStatDef;
-
-        public ServerRack()
->>>>>>> Stashed changes
-        {
-            Basic,
-            Advanced,
-            Glitterworld
-        }
-=======
-        public static bool HasCopiedSettings => copiedItems != null;
->>>>>>> 43be1abc7c52993afb6ee92914c1b3d011385686
 
         public ThingOwner innerContainer;
 
@@ -85,183 +45,6 @@ namespace AdvancedCommercialServers
             base.ExposeData();
         }
 
-<<<<<<< HEAD
-        //updates
-
-        public void UpdateResearchList()
-        {
-            if (ServerResearchAccumulated == null)
-            {
-                ServerResearchAccumulated = new Dictionary<ServerRack, float>();
-            }
-
-            float _thisResearchSpeed = 0f;
-
-            if (!isServerDisabled)
-            {
-                _thisResearchSpeed = curr_ServerResearchSpeed * .015f * ServerModSettings.researchMultiplier;
-            }
-            if (ServerResearchAccumulated.ContainsKey(this))
-                {
-                    ServerResearchAccumulated[this] = _thisResearchSpeed;
-                }
-                else
-                {
-                    ServerResearchAccumulated.Add(this, _thisResearchSpeed);
-                }
-            }
-
-        public void UpdateList()
-        {
-            activatedItems.Clear();
-
-            if(!ItemList.HaveSameKeys(List, ItemList.List))
-            {
-                List = ItemList.List.ToDictionary(entry => entry.Key,entry => entry.Value);
-            }
-
-            // Populate the list with the activated items.
-            foreach (var item in List)
-            {
-                if (item.Value)
-                    activatedItems.Add(item.Key);
-                //Log.Message($"item: {item.Key.label} is {item.Value}");
-            }
-
-            if (activatedItems.Count > 0)
-            {
-                currentResourceIndex = currentResourceIndex % activatedItems.Count;
-            }
-            else
-            {
-                currentResourceIndex = 0;
-            }
-        }
-
-        void UpdateProgress()
-        {
-<<<<<<< Updated upstream
-            if (activatedItems.Count == 0)
-            {
-=======
-            if (isInitialized)
->>>>>>> Stashed changes
-                return;
-
-            ThingDef currentItem = activatedItems[currentResourceIndex];
-            float valueComponent = DefDatabase<ThingDef>.GetNamed("ComponentSpacer").BaseMarketValue;
-            float itemsToSpawn = Mathf.Max(1, Mathf.Floor(valueComponent / currentItem.BaseMarketValue));
-            float totalProgressNeeded = currentItem.BaseMarketValue * itemsToSpawn;
-
-<<<<<<< Updated upstream
-            // Adjust progress increase rate based on the server speed and generation multiplier.
-            currentProgress += (curr_ServerSpeed * .008f) * ServerModSettings.generationSpeedMultiplier;
-
-            // Normalize current progress to a 0-100 scale based on total progress needed
-            normalizedProgress = (currentProgress / totalProgressNeeded) * 100;
-
-            if (normalizedProgress >= 100)
-            {
-                currentProgress = 0; // Reset progress for the next cycle
-                ProcessActivatedItem();
-            }
-        }
-=======
-            if (Production == null)
-                Production = new ServerRackProduction(this);
->>>>>>> Stashed changes
-
-        void ProcessActivatedItem()
-        {
-            if (activatedItems.Count == 0)
-                return; // No activated items to process.
-
-<<<<<<< Updated upstream
-            // Process the item at the current index.
-            SpawnItem(activatedItems[currentResourceIndex]);
-
-            // Update the index to point to the next item, wrapping around if necessary.
-            currentResourceIndex = (currentResourceIndex + 1) % activatedItems.Count;
-        }
-
-        void SpawnItem(ThingDef item)
-        {
-            float valueComponent = DefDatabase<ThingDef>.GetNamed("ComponentSpacer").BaseMarketValue;
-            float itemsToSpawn = Mathf.Max(1, Mathf.Floor(valueComponent / item.BaseMarketValue));
-
-            Thing itemStack = ThingMaker.MakeThing(item);
-            itemStack.stackCount = (int)itemsToSpawn;
-            GenPlace.TryPlaceThing(itemStack, this.Position, Map, ThingPlaceMode.Near);
-=======
-            if (Production.activatedItems == null)
-                Production.activatedItems = new List<ThingDef>();
-
-            if (innerContainer != null)
-            {
-                var toRemove = new List<Thing>();
-                foreach (var thing in innerContainer)
-                {
-                    if (thing == null || thing.def == null)
-                    {
-                        Log.Warning("[ACS] Removing invalid thing from innerContainer.");
-                        toRemove.Add(thing);
-                    }
-                }
-                foreach (var thing in toRemove)
-                    innerContainer.Remove(thing);
-            }
-
-            Production.UpdateActivatedItems(List);
-            Core.UpdateServerRack();
-            Util.ValidateItemList();
-
-            // ensure bench sees the correct facility offset from the start
-            RefreshResearchFacilityOffset();
-
-            isInitialized = true;
->>>>>>> Stashed changes
-        }
-
-#if RW15
-        public override void Tick()
-        {
-            base.Tick();
-<<<<<<< Updated upstream
-
-            if (powerTrader == null)
-=======
-            StateManager.HandleTick();
-
-            if (this.IsHashIntervalTick(60))
->>>>>>> Stashed changes
-            {
-                powerTrader = this.GetComp<CompPowerTrader>();
-            }
-
-            if (this.IsHashIntervalTick(60)) // RimWorld has 60 ticks per in-game second
-            {
-                if (powerTrader.PowerOn)
-                {
-                    UpdateProgress(); // One second has passed in game time
-
-                    if (ServerModSettings.generateHeat)
-                    {
-                        float energy = Math.Abs((this.GetComp<CompPowerTrader>().PowerOutput * multiplier) * ServerModSettings.generateHeatMultiplier);
-                        GenTemperature.PushHeat(this.Position, this.Map, energy);
-                    }
-                }
-
-                if (powerConsumption != ServerModSettings.powerConsumption)
-                {
-                    powerConsumption = ServerModSettings.powerConsumption;
-                    UpdateServerRack();
-                }
-                this.CheckShutdownTemperature();
-            }
-        }
-
-=======
->>>>>>> 43be1abc7c52993afb6ee92914c1b3d011385686
         public override void PostMapInit()
         {
             Initialize();
@@ -353,63 +136,8 @@ namespace AdvancedCommercialServers
                 RefreshResearchFacilityOffset();
             }
 
-<<<<<<< HEAD
-            if (curr_AdvancedServerCount <= 0)
-            {
-                var billsToRemove = billStack.Bills
-                    .Where(bill => bill.Label.Equals("Uninstall advanced server"))
-                    .ToList();
-                foreach (var bill in billsToRemove)
-                {
-                    billStack.Bills.Remove(bill);
-                }
-            }
-
-            if (curr_GlitterworldServerCount <= 0)
-            {
-                var billsToRemove = billStack.Bills
-                    .Where(bill => bill.Label.Equals("Uninstall glitterworld server"))
-                    .ToList();
-                foreach (var bill in billsToRemove)
-                {
-                    billStack.Bills.Remove(bill);
-                }
-            }
-
-            // update linked bench facility bonus periodically (cheap)
-            if (this.IsHashIntervalTick(250))
-            {
-                RefreshResearchFacilityOffset();
-            }
-
             HeatPusherPowered?.Tick();
         }
-#elif RW16
-        protected override void Tick()
-        {
-            base.Tick();
-            StateManager.HandleTick();
-
-            if (this.IsHashIntervalTick(60))
-            {
-                if (StateManager.IsOperational)
-                {
-                    Production.AdvanceProgress();
-                }
-            }
-
-            // update linked bench facility bonus periodically (cheap)
-            if (this.IsHashIntervalTick(250))
-            {
-                RefreshResearchFacilityOffset();
-            }
-
-            HeatPusherPowered?.Tick();
-        }
-=======
-            HeatPusherPowered?.Tick();
-        }
->>>>>>> 43be1abc7c52993afb6ee92914c1b3d011385686
 #endif
 
         public override IEnumerable<Gizmo> GetGizmos() => UIHelper.GetGizmos(base.GetGizmos());
@@ -422,38 +150,11 @@ namespace AdvancedCommercialServers
             base.Destroy(mode);
         }
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-
-        public void GetChildHolders(List<IThingHolder> outChildren)
-        {
-            ThingOwnerUtility.AppendThingHoldersFromThings(
-                outChildren,
-                this.GetDirectlyHeldThings()
-            );
-        }
-
-        public ThingOwner GetDirectlyHeldThings()
-        {
-            return this.innerContainer;
-        }
-=======
-        public ThingOwner GetDirectlyHeldThings() => innerContainer;
->>>>>>> Stashed changes
-
-        public override IEnumerable<Gizmo> GetGizmos()
-        {
-            Command_Action setup_Action = new Command_Action();
-            setup_Action.defaultLabel = "Select resources";
-            setup_Action.icon = DefDatabase<ThingDef>.GetNamed("Silver").uiIcon;
-            setup_Action.action = delegate
-=======
         public ThingOwner GetDirectlyHeldThings() => innerContainer;
 
         public void GetChildHolders(List<IThingHolder> outChildren)
         {
             if (Core != null)
->>>>>>> 43be1abc7c52993afb6ee92914c1b3d011385686
             {
                 ThingOwnerUtility.AppendThingHoldersFromThings(outChildren, innerContainer);
             }
@@ -462,21 +163,11 @@ namespace AdvancedCommercialServers
         public void CopySettings()
         {
             copiedItems = List.ToDictionary(entry => entry.Key, entry => entry.Value);
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-            Messages.Message("Copied settings", MessageTypeDefOf.TaskCompletion, historical: false);
-=======
-=======
->>>>>>> 43be1abc7c52993afb6ee92914c1b3d011385686
             Messages.Message(
                 "ACS_CopiedSettings".Translate(),
                 MessageTypeDefOf.TaskCompletion,
                 historical: false
             );
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> 43be1abc7c52993afb6ee92914c1b3d011385686
         }
 
         public void PasteSettings()
@@ -484,29 +175,6 @@ namespace AdvancedCommercialServers
             if (copiedItems != null)
             {
                 List = copiedItems.ToDictionary(entry => entry.Key, entry => entry.Value);
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-                // keep Production in sync
-                Production.UpdateActivatedItems(List);
->>>>>>> 43be1abc7c52993afb6ee92914c1b3d011385686
-                Messages.Message(
-                    "ACS_PastedSettings".Translate(),
-                    MessageTypeDefOf.TaskCompletion,
-                    historical: false
-                );
-
-                // server selection changed → refresh facility bonus
-                RefreshResearchFacilityOffset();
-            }
-        }
-
-        // --- SOUTH-only dynamic fill art selection using preferred Graphic override ---
-        public override Graphic Graphic
-        {
-<<<<<<< HEAD
-            Find.WindowStack.Add(new SetupDialog(this));
-=======
                 // keep Production in sync
                 Production.UpdateActivatedItems(List);
                 Messages.Message(
@@ -523,8 +191,6 @@ namespace AdvancedCommercialServers
         // --- SOUTH-only dynamic fill art selection using preferred Graphic override ---
         public override Graphic Graphic
         {
-=======
->>>>>>> 43be1abc7c52993afb6ee92914c1b3d011385686
             get
             {
                 if (!Spawned || (Find.DesignatorManager?.SelectedDesignator is Designator_Install))
@@ -632,10 +298,6 @@ namespace AdvancedCommercialServers
                 else
                     Log.Message($"[ACS] Graphic getter caller: {caller}");
             }
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> 43be1abc7c52993afb6ee92914c1b3d011385686
         }
     }
 }
