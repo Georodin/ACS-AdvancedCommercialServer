@@ -10,7 +10,6 @@ namespace AdvancedCommercialServers
     public class AdvancedCommercialServersMod : Mod
     {
         private ServerModSettings settings;
-        private Vector2 scrollPosition;
 
         public AdvancedCommercialServersMod(ModContentPack content) : base(content)
         {
@@ -116,7 +115,7 @@ namespace AdvancedCommercialServers
                 {
                     if (thing is ServerRack rack)
                     {
-                        rack.UpdateList();
+                        rack.Production.UpdateActivatedItems(rack.List);
                     }
                 }
             }
@@ -133,8 +132,6 @@ namespace AdvancedCommercialServers
 
     public class DefNamesWindow : Window
     {
-        private Vector2 scrollPosition;
-
         public DefNamesWindow()
         {
             this.doCloseButton = true; // Adds a close button to the window
@@ -189,34 +186,34 @@ namespace AdvancedCommercialServers
             Widgets.EndScrollView();
         }
 
-        void AddDefTo(ThingDef def, bool remove = false)
-        {
-            if (remove)
-            {
-                ItemList.List.Remove(def);
-            }
-            else
-            {
-                ItemList.List.Add(def, false);
-            }
-        }
-
         private void DrawThingRow(Rect rowRect, ThingDef def, Action onClickAction)
         {
-            // Adjust these values as necessary to fit your UI design
-            float iconSize = 24;
-            float padding = 4;
-            float textHeight = 24;
+            float iconSize = 24f;
+            float padding = 4f;
+            float textHeight = 24f;
+
             Rect iconRect = new Rect(rowRect.x, rowRect.y, iconSize, iconSize);
             Rect textRect = new Rect(iconRect.xMax + padding, rowRect.y, rowRect.width - iconSize - padding, textHeight);
 
-            // Draw the icon
             Widgets.ThingIcon(iconRect, def);
 
-            // Draw the button text
             if (Widgets.ButtonText(textRect, def.label))
             {
+                // Original behavior
                 onClickAction?.Invoke();
+
+                // NEW: persist to settings
+                if (!ServerModSettings.customThingDefs.Contains(def.defName))
+                {
+                    ServerModSettings.customThingDefs.Add(def.defName);
+                    // Also reflect immediately in global list
+                    if (!ItemList.List.ContainsKey(def))
+                        ItemList.List.Add(def, false);
+
+                    // Let existing racks pick it up when opening the dialog or at next validation
+                    var mod = LoadedModManager.GetMod<AdvancedCommercialServersMod>();
+                    mod?.GetSettings<ServerModSettings>()?.Write();
+                }
             }
         }
     }

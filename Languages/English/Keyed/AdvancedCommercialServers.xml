@@ -1,0 +1,20 @@
+<LanguageData>
+	<Loading>Loading...</Loading>
+	<AutoShutdownHeatWarning>Servers too hot. Auto shutdown due to temperature...</AutoShutdownHeatWarning>
+	<BasicServers>Basic servers: x{0}</BasicServers>
+	<AdvancedServers>Advanced servers: x{0}</AdvancedServers>
+	<GlitterworldServers>Glitterworld servers: x{0}</GlitterworldServers>
+	<ServerSpeed>Calculation performance: {0} THz</ServerSpeed>
+	<ResearchSpeed>Research speed: {0}% (Total: {1}%)</ResearchSpeed>
+
+	<SelectResources>Select resources</SelectResources>
+	<SelectResourcesDesc>Open a dialog to choose which items this server rack should generate.</SelectResourcesDesc>
+	<CopySettings>Copy settings</CopySettings>
+	<PasteSettings>Paste settings</PasteSettings>
+	
+	<ACS_NoPayoutSelected>No payout selected...</ACS_NoPayoutSelected>
+	<ACS_PayoutProgress>Awaiting payout: {0} x{1}\nProgress: {2}%</ACS_PayoutProgress>
+
+	<ACS_CopiedSettings>Copied settings</ACS_CopiedSettings>
+	<ACS_PastedSettings>Pasted settings</ACS_PastedSettings>
+</LanguageData>

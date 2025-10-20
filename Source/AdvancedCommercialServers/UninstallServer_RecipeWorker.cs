@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RimWorld;
+using System.Collections.Generic;
 using Verse;
 
 namespace AdvancedCommercialServers
@@ -8,10 +9,9 @@ namespace AdvancedCommercialServers
         
         public override bool AvailableOnNow(Thing thing, BodyPartRecord part = null)
         {
-
             if (thing is ServerRack rack)
             {
-                return rack.IsUninstallAvailableNow(recipe.label);
+                return rack.Core.IsUninstallAvailable(recipe.ProducedThingDef);
             }
             return false;
         }
@@ -28,11 +28,9 @@ namespace AdvancedCommercialServers
 
             if (targetThing is ServerRack serverRack)
             {
-                
-                serverRack.UninstallServer(billDoer, recipe);
+                serverRack.Core.UninstallServer(billDoer, recipe.ProducedThingDef);
             }
 
         }
-
     }
 }

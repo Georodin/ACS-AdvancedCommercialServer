@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Verse;
 
 namespace AdvancedCommercialServers
 {
     internal class ItemList
     {
-
-        //resources to generate
+        // resources to generate (defaults)
         public static Dictionary<ThingDef, bool> List = new Dictionary<ThingDef, bool>
         {
             { DefDatabase<ThingDef>.GetNamed("Silver"), true },
@@ -26,25 +19,21 @@ namespace AdvancedCommercialServers
             { DefDatabase<ThingDef>.GetNamed("Neutroamine"), false }
         };
 
-        public static bool HaveSameKeys(Dictionary<ThingDef, bool> dict1, Dictionary<ThingDef, bool> dict2)
+        // NEW: call this after settings load or when settings change
+        public static void ApplyCustomDefsFromSettings()
         {
-            // Check if both dictionaries have the same count of keys
-            if (dict1.Count != dict2.Count)
-            {
-                return false;
-            }
+            if (ServerModSettings.customThingDefs == null) return;
 
-            // Check each key in dict1 to see if it is present in dict2
-            foreach (var key in dict1.Keys)
+            foreach (var defName in ServerModSettings.customThingDefs)
             {
-                if (!dict2.ContainsKey(key))
+                if (string.IsNullOrEmpty(defName)) continue;
+                var def = DefDatabase<ThingDef>.GetNamedSilentFail(defName);
+                if (def != null && !List.ContainsKey(def))
                 {
-                    return false;
+                    // default to disabled; players toggle per rack
+                    List.Add(def, false);
                 }
             }
-
-            // If all keys match, return true
-            return true;
         }
     }
 }
