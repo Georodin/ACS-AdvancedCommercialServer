@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 using Verse;
 
@@ -19,6 +17,22 @@ namespace AdvancedCommercialServers
 
         public override void DoWindowContents(Rect inRect)
         {
+            if (rack == null || rack.List == null || rack.Production == null)
+            {
+                string reason = "Unknown";
+
+                if (rack == null)
+                    reason = "rack == null";
+                else if (rack.List == null)
+                    reason = "rack.List == null";
+                else if (rack.Production == null)
+                    reason = "rack.Production == null";
+
+                Widgets.Label(inRect, $"[SetupDialog] Data not loaded: {reason}");
+                return;
+            }
+
+
             float topPadding = 15f;
             float bottomPadding = 50f;
             float iconSize = 24f;  // Define icon size, ensuring it's square
@@ -84,10 +98,8 @@ namespace AdvancedCommercialServers
 
         private void CloseWindow()
         {
-            rack.UpdateList();
+            rack.Production.UpdateActivatedItems(rack.List);
             Close();
         }
-
-
     }
 }

@@ -1,23 +1,28 @@
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 ﻿using System;
 =======
 ﻿using RimWorld;
 >>>>>>> Stashed changes
+=======
+﻿using RimWorld;
+>>>>>>> 43be1abc7c52993afb6ee92914c1b3d011385686
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
 
 namespace AdvancedCommercialServers
 {
-    internal class ServerRackUtil
+    public class ServerRackUtil
     {
         public static Dictionary<int, Graphic> PreGeneratedGraphics;
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> 43be1abc7c52993afb6ee92914c1b3d011385686
         private static bool initQueued;
         private static bool initialized;
 
@@ -29,7 +34,10 @@ namespace AdvancedCommercialServers
             EnsureGraphicsInitialized();
         }
 
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> 43be1abc7c52993afb6ee92914c1b3d011385686
         public static void EnsureGraphicsInitialized()
         {
             if (initialized && PreGeneratedGraphics != null)
@@ -87,8 +95,11 @@ namespace AdvancedCommercialServers
                 }
             }
         }
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> 43be1abc7c52993afb6ee92914c1b3d011385686
 
         public void ValidateItemList()
         {
@@ -129,6 +140,9 @@ namespace AdvancedCommercialServers
                 parent.List = ItemList.List.ToDictionary(entry => entry.Key, entry => entry.Value);
             }
         }
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> 43be1abc7c52993afb6ee92914c1b3d011385686
     }
 }

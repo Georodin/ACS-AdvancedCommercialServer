@@ -68,8 +68,13 @@
   <ItemGroup>
     <Compile Include="AdvancedCommercialServersMod.cs" />
     <Compile Include="ItemList.cs" />
+    <Compile Include="MapComponent_ServerData.cs" />
     <Compile Include="ServerModSettings.cs" />
+    <Compile Include="ServerRackCore.cs" />
     <Compile Include="ServerRackHeatPusherPowered.cs" />
+    <Compile Include="ServerRackProduction.cs" />
+    <Compile Include="ServerRackStateManager.cs" />
+    <Compile Include="ServerRackUIHelper.cs" />
     <Compile Include="ServerRackUtil.cs" />
     <Compile Include="SetupDialog.cs" />
     <Compile Include="UninstallServer_RecipeWorker.cs" />

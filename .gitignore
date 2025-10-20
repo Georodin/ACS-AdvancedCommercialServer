@@ -1,6 +1,29 @@
+# Build artifacts
+*.dll
+*.pdb
+*.mdb
+*.config
 
+<<<<<<< HEAD
 1.5/Assemblies/AdvancedCommercialServers.dll.config
 *.db
 /Source/AdvancedCommercialServers/.vs/AdvancedCommercialServers/FileContentIndex
 /Source/AdvancedCommercialServers/.vs/AdvancedCommercialServers/CopilotIndices/17.14.1290.42047
 *.json
+=======
+# Visual Studio / Rider / IDE specific
+.vs/
+.idea/
+*.user
+*.suo
+*.cache
+*.csproj.user
+*.vsidx
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+>>>>>>> 43be1abc7c52993afb6ee92914c1b3d011385686

@@ -10,7 +10,6 @@ namespace AdvancedCommercialServers
     public class AdvancedCommercialServersMod : Mod
     {
         private ServerModSettings settings;
-        private Vector2 scrollPosition;
 
         public AdvancedCommercialServersMod(ModContentPack content) : base(content)
         {
@@ -116,7 +115,7 @@ namespace AdvancedCommercialServers
                 {
                     if (thing is ServerRack rack)
                     {
-                        rack.UpdateList();
+                        rack.Production.UpdateActivatedItems(rack.List);
                     }
                 }
             }
@@ -133,8 +132,6 @@ namespace AdvancedCommercialServers
 
     public class DefNamesWindow : Window
     {
-        private Vector2 scrollPosition;
-
         public DefNamesWindow()
         {
             this.doCloseButton = true; // Adds a close button to the window
@@ -187,18 +184,6 @@ namespace AdvancedCommercialServers
             }
             rightListing.End();
             Widgets.EndScrollView();
-        }
-
-        void AddDefTo(ThingDef def, bool remove = false)
-        {
-            if (remove)
-            {
-                ItemList.List.Remove(def);
-            }
-            else
-            {
-                ItemList.List.Add(def, false);
-            }
         }
 
         private void DrawThingRow(Rect rowRect, ThingDef def, Action onClickAction)
