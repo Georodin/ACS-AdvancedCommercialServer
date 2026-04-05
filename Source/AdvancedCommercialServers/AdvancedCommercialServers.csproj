@@ -83,9 +83,6 @@
     <Compile Include="ServerBase.cs" />
     <Compile Include="ServerRack.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'RW1_5'">
     <Reference Include="Assembly-CSharp">
       <HintPath>REF_DLL\1.5\Assembly-CSharp.dll</HintPath>
